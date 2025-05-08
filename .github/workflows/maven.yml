@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_URL: 192.168.206.135
-      DB_USR: admin
-      DB_PASS: mystrongpass
+      DB_USR: kanban
+      DB_PASS: kanban
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
