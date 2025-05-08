@@ -1,4 +1,5 @@
+XML_TMP=./src/main/resources/META-INF/persistence.temp.xml
 XML_OUT=./src/main/resources/META-INF/persistence.xml
 
-envsubst "`printf '${%s} ' $(sh -c "env|cut -d'=' -f1")`" < $XML_OUT > $XML_OUT
-
+envsubst "`printf '${%s} ' $(sh -c "env|cut -d'=' -f1")`" < $XML_TMP > $XML_OUT
+rm $XML_TMP
