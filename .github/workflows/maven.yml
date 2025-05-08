@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_URL: 192.168.206.135
-      DB_USR: kanban
+      DB_USER: kanban
       DB_PASS: kanban
     steps:
       - uses: actions/checkout@v4
