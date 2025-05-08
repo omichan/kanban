@@ -33,5 +33,5 @@ jobs:
         run: pwd   
       - uses: actions/upload-artifact@v4
         with:
-          name: Kanban
-          path: ./target/*.war
+          name: kanban-${{ github.run_number }}.war
+          path: ./target/Kanban.war
