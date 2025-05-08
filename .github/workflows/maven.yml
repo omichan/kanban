@@ -23,7 +23,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Make the script files executable
-        run: chmod +x ./scrips/chvars.sh
+        run: chmod +x ./script/chvars.sh
       - name: Run the scripts
         run:
           ./scrips/chvars.sh
