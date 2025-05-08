@@ -12,10 +12,10 @@
 
         <properties>
             <property name="hibernate.connection.url"
-                      value="jdbc:postgresql://192.168.15.2:5432/kanban?characterEncoding=UTF-8"/>
+                      value="jdbc:postgresql://$DB_URL:5432/kanban?characterEncoding=UTF-8"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="pgpwd4habr"/>
+            <property name="hibernate.connection.username" value="$DB_USER"/>
+            <property name="hibernate.connection.password" value="$DB_PASS"/>
             <!--<property name="hibernate.connection.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
             <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
         </properties>
