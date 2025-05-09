@@ -63,11 +63,13 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ matrix.image }}
+          tags: |
+            type=raw,value=ver-${{ github.run_number }}
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ${{ matrix.dockerfile }}
           push: true
-          tags: v-${{ github.run_number }}, latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
