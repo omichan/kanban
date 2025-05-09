@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: kanban/${{ github.run_number }}-${{ github.run_attempt }}
+          - image: lessoncodeby/${{ github.run_number }}-${{ github.run_attempt }}
             dockerfile: Docker/Dockerfile
     steps:
       - uses: actions/checkout@v4
