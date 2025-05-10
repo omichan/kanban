@@ -2,7 +2,7 @@ name: Deployment app
 on:
   push:
     branches:
-      — 'deploy'
+      — deploy
 jobs:
   build:
     runs-on: self-hosted
