@@ -1,0 +1,10 @@
+name: Deployment1 app
+on:
+  push:
+    branches:
+      — deploy
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v4
