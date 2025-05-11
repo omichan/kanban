@@ -11,7 +11,7 @@ jobs:
   build-app:
     runs-on: ubuntu-latest
     env:
-      DB_URL: 192.168.206.135
+      DB_URL: 10.109.141.23
       DB_USER: kanban
       DB_PASS: kanban
     steps:
