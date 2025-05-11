@@ -10,4 +10,13 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Run docker compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "./Docker/docker-compose.yml"
+
+#      - name: Execute tests in the running services
+#        run: |
+#          docker compose exec test-app pytest
