@@ -7,10 +7,10 @@ on:
   pull_request:
     branches:
       - deploy
-##  workflow_run:
-##    workflows: [Java CI with Maven]
-##    types:
-##      - completed
+  workflow_run:
+    workflows: [Java CI with Maven]
+    types:
+      - completed
 jobs:
  deploy:
    name: Create k8s deployment
