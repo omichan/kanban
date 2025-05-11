@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanban
+  labels:
+    app: kanban
+    group: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kanban
+  template:
+    metadata:
+      labels:
+        app: kanban
+        group: db
+    spec:
+      containers:
+        - name: kanban
+          image: lessoncodeby/kanban:latest
+          ports:
+            - containerPort: 8080
+          env:
+#            - name: ADMINER_DESIGN
+#              value: pepa-linha
+#            - name: ADMINER_DEFAULT_SERVER
+#              value: postgres
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
