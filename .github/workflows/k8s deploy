@@ -1,0 +1,14 @@
+name: Kubernetes-deployment
+
+on:
+  workflow_run:
+    workflows: [Java CI with Maven]
+    types:
+      - completed
+jobs:
+ deploy:
+   name: Create k8s deployment
+   runs-on: kubernetes-runner
+   steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
