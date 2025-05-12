@@ -21,4 +21,5 @@ jobs:
         
       - name: Deploy the application
         run:  |
-          kubectl apply -f ./k8s/
+          #kubectl apply -f ./k8s/
+          kubectl rollout restart deployment/kanban
