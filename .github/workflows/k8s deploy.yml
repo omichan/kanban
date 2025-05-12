@@ -10,14 +10,14 @@ jobs:
    name: Create k8s deployment
    runs-on: kubernetes-runner2
    steps:
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
+      #- name: Check out the repository to the runner
+      #  uses: actions/checkout@v4  
         
-      - name: Download kubectl binaries
-        run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      #- name: Download kubectl binaries
+      #  run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
      
-      - name: Install Kubectl
-        run: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      #- name: Install Kubectl
+      #  run: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         
       - name: Deploy the application
         run:  |
