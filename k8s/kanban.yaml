@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanban
+  labels:
+    app: kanban
+    group: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kanban
+  template:
+    metadata:
+      labels:
+        app: kanban
+        group: db
+    spec:
+      containers:
+        - name: kanban
+          image: lessoncodeby/kanban:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
