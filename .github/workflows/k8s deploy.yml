@@ -1,12 +1,6 @@
 name: Kubernetes-deployment
 
 on:
-  push:
-    branches:
-      - deploy
-  pull_request:
-    branches:
-      - deploy
   workflow_run:
     workflows: [Java CI with Maven]
     types:
