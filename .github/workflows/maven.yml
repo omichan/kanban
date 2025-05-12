@@ -11,7 +11,7 @@ jobs:
   build-app:
     runs-on: ubuntu-latest
     env:
-      DB_URL: 10.109.141.23
+      DB_URL: postgres
       DB_USER: kanban
       DB_PASS: kanban
     steps:
