@@ -31,10 +31,12 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: test
         run: pwd   
+      - name: Rename app to ROOT.war
+        run: mv ./target/Kanban.war ./target/ROOT.war
       - uses: actions/upload-artifact@v4
         with:
           name: kanban-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}.war
-          path: ./target/Kanban.war
+          path: ./target/ROOT.war
   docker-pub:
     runs-on: ubuntu-latest
     needs:
