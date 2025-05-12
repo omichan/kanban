@@ -11,7 +11,7 @@ jobs:
   build-app:
     runs-on: ubuntu-latest
     env:
-      DB_URL: 192.168.15.2
+      DB_URL: postgres.actions-runner-system.svc.cluster.local
       DB_USER: kanban
       DB_PASS: kanban
     steps:
