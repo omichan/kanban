@@ -19,14 +19,6 @@ spec:
       containers:
         - name: kanban
           image: lessoncodeby/kanban:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-#            - name: ADMINER_DESIGN
-#              value: pepa-linha
-#            - name: ADMINER_DEFAULT_SERVER
-#              value: postgres
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
