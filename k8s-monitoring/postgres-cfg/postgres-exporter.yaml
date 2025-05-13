@@ -20,7 +20,11 @@ spec:
             - containerPort: 9187
           env:
             - name: DATA_SOURCE_NAME
-              value: "postgres://kanban:kanban@postgres.actions-runner-system.svc.cluster.local:5432/postgres?sslmode=disable"
+              #value format: "postgres://user:pass@ip:5432/postgres?sslmode=disable"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: EXPORT_URL
 ---
 apiVersion: v1
 kind: Service

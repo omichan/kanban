@@ -1,0 +1,10 @@
+---
+- name: Deploy k8s kanban app
+  hosts: master
+  gather_facts: false
+
+  tasks:
+    - name: apply kanban blaybooks
+      become: no
+      command: kubectl apply -f "{{ k8s_path }}/k8s"
+    

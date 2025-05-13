@@ -24,13 +24,15 @@ spec:
                 name: postgres-config
           env:
             - name: POSTGRES_PASSWORD
-              value: kanban
-#             valueFrom:
-#               secretKeyRef:
-#                 name: postgres-secret
-#                 key: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_USER
-              value: kanban
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
             - name: POSTGRES_DB
               value: kanban
           volumeMounts:
