@@ -1,105 +1,38 @@
-# Kanban
-## Description
-Web application based on scheduling system **Kanban**. The program helps manage programming projects (and not just programming) on the basis of tasks divided into three category: "to do", "doing" and "done". Each of users belongs to one team and user can inter alia: start new project, add tasks to its, change tasks' category or remove them.
-## Technologies
-- Java:
-  - Java EE:
-    - JSP [view of websites]
-    - JSTL [core, functions]
-    - Expression Language
-  - JPA & Hibernate:
-    - JPQL [adding, updating, selecting and deleting queries]
-    - specifying relations between entities in database and parameters of columns in tables
-  - Java 8 SE:
-    - Stream API
-  - JavaDoc:
-    - [Documentation](http://plkpiotr.ayz.pl/)
-   - servlets, listeners, annotations, hashing passwords
-- HTML:
-  - Bootstrap 3.0.3 [Responsive Web Design]
-  - data validation in login form and registration form
-  - semantic elements from HTML5
-- CSS
-## Features
-- Overall review of projects carried by company, adding new project or deleting existed: ![company](https://user-images.githubusercontent.com/21959354/30253767-f158fd7a-968b-11e7-95e5-c0c10e33ce16.png)
-- Summary tasks in the projects to which employee belongs: ![profile1](https://user-images.githubusercontent.com/21959354/30253768-f4bc891e-968b-11e7-983d-6f3966291f9f.png)
-- Changing category of tasks or removing what have been done: ![profile2](https://user-images.githubusercontent.com/21959354/30253769-f72bab8a-968b-11e7-89f3-3d18a71fa432.png)
-- Summary tasks in the projects for all team: ![project](https://user-images.githubusercontent.com/21959354/30253770-f925cba0-968b-11e7-9d86-b80eb02b9afa.png)
-- Possibility of adding new tasks setting person responsible for its execution: ![addtask](https://user-images.githubusercontent.com/21959354/30253771-fbef0158-968b-11e7-9830-9f567686e384.png)
-## Software tools
-- IntelliJ IDEA 2017.2.2
-- pgAdmin 4 [PostgreSQL 9.6]
-- Apache Tomcat 8.5.30
-- Maven 4.0.0
-## Project structure
-```elixir
-│   Kanban.iml
-│   pom.xml
-│
-└───src:
-    └───main:
-        ├───java:
-        │   └───com:
-        │       └───plkpiotr:
-        │           └───kanban:
-        │               ├───dao:
-        │               │       CompanyDAO.java
-        │               │       EmployeeDAO.java
-        │               │       ProjectDAO.java
-        │               │       TaskDAO.java
-        │               │
-        │               ├───domain:
-        │               │       Company.java
-        │               │       Employee.java
-        │               │       Project.java
-        │               │       Task.java
-        │               │
-        │               ├───listeners:
-        │               │       ConfigurationListener.java
-        │               │       InitializationListener.java
-        │               │
-        │               └───servlets:
-        │                       AddTaskServlet.java
-        │                       CompanyServlet.java
-        │                       IndexServlet.java
-        │                       LogInServlet.java
-        │                       LogOutServlet.java
-        │                       ProfileServlet.java
-        │                       ProjectServlet.java
-        │                       RegistrationServlet.java
-        │
-        ├───resources:
-        │   └───META-INF:
-        │           persistence.xml
-        │
-        └───webapp:
-            ├───css:
-            │       bootstrap.min.css
-            │       style.css
-            │
-            ├───img:
-            │       [PNG files]
-            │
-            ├───js:
-            │       backToTheSamePlace.js
-            │       bootstrap.min.js
-            │       jquery-3.2.1.min.js
-            │
-            └───WEB-INF:
-                │   web.xml
-                │
-                └───views:
-                        addtask.jsp
-                        company.jsp
-                        error.jsp
-                        index.jsp
-                        login.jsp
-                        profile.jsp
-                        project.jsp
-                        registration.jsp
+
+# Проект CI CD приложения Kanban (Java Maven)
+
+Данный репозиторий предназначен для размещения исходного java-приложения **Kanban** и файлов инфраструктуры Devops для организации процессов непрерывной интеграции и непрерывной доставки (CI/CD) на сервер исполнения. 
+
+Приложение состоит из 2 частей:
+ - Apache Tomcat файл с расширением .war
+ - База данных PostgreSQL для хранения информации
+
+Подробнее о приложении можно узнать из [файла описания](https://github.com/omichan/kanban/blob/diploma/README_orig.md).
+
+## Описание процесса CI/CD
+```mermaid
+graph LR
+A[Push / PR in *master] -- CI pl --> B[Docker HUB]
+B -- CD pl --> D[Kubernetes]
+
 ```
-## Comments
-Icon of Kanban was made by [Those Icon](https://www.flaticon.com/authors/those-icons) from [FlatIcon](https://www.flaticon.com/) is licensed by [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).  
-Avatars on the website were made by [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [FlatIcon](https://www.flaticon.com/) is licensed by [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
-## License
-Apache License 2.0 
+ 1. Разработчики вносят изменения в код приложения, создавая новые ветки в текущем репозитории и объединяют изменения в главную ветку **master**
+ 2. При возникновении событий **push** или **pull request** в ветку **master** запускается *Java CI with Maven* action, описанный в **Github Actions**. После успешного окончания CI-pipeline, запускается CD-pipeline *Kubernetes-deployment*.
+ 3. Артефакты успешной сборки публикуются в **Github Actions** и в реестре образов **[Docker Hub](https://hub.docker.com/r/lessoncodeby/kanban/tags)**
+ 4. В качестве версии артефактов сборки выступает уникальный номер успешной родительской задачи (*github.run_number*)
+ 5. Сборка CI-артефакта выполняется по **Dockerfile** из папки ./Docker/Dockerfile 
+ 6. CD-pipeline заключается в выполнении задач на self-runner хосте локального кластера Kubernetes. Задачи разворачивают на self-runner узел *k8s-runner* и через сервисный аккаунт выполняется обновление образа приложения **Kanban** в самом кластере **Kubernetes**.
+ 7. Установка Kubernetes-кластера выполняется на виртуальных машинах с помощью плейбука **Ansible** командой:  
+ `ansible-playbook ./Ansible/playbook/create-cluster.yaml -i  ./Ansible/env/inventory`
+ 8. Первичная публикация приложения выполняется с помощью плейбука **Ansible** командой (*k8s_path* - переменная пути хранения kubernetes манифестов приложения)
+ `ansible-playbook ./Ansible/playbook/deploy-kanban.yaml -i  ./Ansible/env/inventory -extra-vars "k8s_path=/home/user/kanban/k8s/"`
+ 9. В качестве системы мониторинга и логирования используется инструмент **Prometeus**. Манифесты развертывания **Prometeus** в кластере **Kubernetes** расположены в директории `./k8s-monitoring/prometeus-cfg/` . Формирование метрик для системы мониторинга выполняется специальным узлом postres-exporter , устанавливаемым в кластер kubernetes как отдельный от основной базы данных. Манифесты развертывания postres-exporter расположены в директории `./k8s-monitoring/postgres-cfg/`.
+ 10. В качестве дашборда отображения нагрузки на БД используется платформа **Grafana**. Манифест развертывания **Grafana** в кластере Kubernetes расположены в файле `./k8s-monitoring/grafana-config.yaml`
+
+## Скриншоты
+![Kanban app main](https://github.com/omichan/kanban/blob/diploma/readme/kanban-main.png)
+
+![Grafana result](https://github.com/omichan/kanban/blob/diploma/readme/grafana-dash.png)
+
+
+
